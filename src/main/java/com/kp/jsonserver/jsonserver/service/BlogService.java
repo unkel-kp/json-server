@@ -1,6 +1,7 @@
 package com.kp.jsonserver.jsonserver.service;
 
 
+import com.kp.jsonserver.jsonserver.models.Author;
 import com.kp.jsonserver.jsonserver.models.Blog;
 import com.kp.jsonserver.jsonserver.models.Database;
 import com.kp.jsonserver.jsonserver.models.MetaData;
@@ -18,6 +19,9 @@ public class BlogService {
 
     @Autowired
     private DatabaseManager databaseManager;
+
+    @Autowired
+    private AuthorService authorService;
 
     // Filtering the Data set basis of title or author_id
     private List<Blog> filter(List<Blog> blogs, String title, String author_id){
@@ -142,6 +146,7 @@ public class BlogService {
             Database dbSnapShot = databaseManager.getData();
             List<Blog> blogs = dbSnapShot.getBlogs();
             MetaData metaData = dbSnapShot.getMetaData();
+            Author author = authorService.getAuthorById(String.valueOf(requestBody.getAuthorId()));
             Blog blog = new Blog(metaData.getBlogsId()+1,
                     requestBody.getTitle(), requestBody.getAuthorId(),
                     requestBody.getReadTime(), requestBody.getReads(),

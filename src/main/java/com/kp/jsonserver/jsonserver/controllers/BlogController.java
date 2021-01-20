@@ -67,7 +67,7 @@ public class BlogController {
 
 
     @DeleteMapping(value = "{id}/delete")
-    public ServiceResponse<?> updateBlog(@PathVariable String id){
+    public ServiceResponse<?> deleteBlog(@PathVariable String id){
         try{
             return new ServiceResponse<>(blogService.deleteBlog(id), HttpStatus.OK);
         } catch (Exception e) {

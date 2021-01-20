@@ -25,7 +25,7 @@ public class BlogService {
 
         if(!StringUtils.isEmpty(title) && StringUtils.isEmpty(author_id)){
             blogs.forEach(blog -> {
-                if(blog.getTitle().equals(title))
+                if(blog.getTitle().equalsIgnoreCase(title))
                     result.add(blog);
             });
         }
@@ -37,7 +37,7 @@ public class BlogService {
         }
         else if(!StringUtils.isEmpty(title) && !StringUtils.isEmpty(author_id)){
             blogs.forEach(blog -> {
-                if(blog.getTitle().equals(title) && author_id.equals(String.valueOf(blog.getAuthorId())))
+                if(blog.getTitle().equalsIgnoreCase(title) && author_id.equals(String.valueOf(blog.getAuthorId())))
                     result.add(blog);
             });
         }

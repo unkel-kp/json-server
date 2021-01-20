@@ -2,6 +2,7 @@ package com.kp.jsonserver.jsonserver.service;
 
 
 import com.kp.jsonserver.jsonserver.models.Author;
+import com.kp.jsonserver.jsonserver.models.Blog;
 import com.kp.jsonserver.jsonserver.models.Database;
 import com.kp.jsonserver.jsonserver.models.MetaData;
 import com.kp.jsonserver.jsonserver.provider.DatabaseManager;
@@ -231,6 +232,7 @@ public class AuthorService {
         try{
             Database dbSnapShot = databaseManager.getData();
             List<Author> authors = dbSnapShot.getAuthors();
+            List<Blog> blogs = dbSnapShot.getBlogs();
             MetaData metaData = dbSnapShot.getMetaData();
             Author result = null;
             for(Author author: authors){
@@ -244,8 +246,13 @@ public class AuthorService {
                 throw new Exception("NO AUTHOR FOUND! Make sure you're providing the correct id");
             }
             else{
+                for(Blog blog: blogs){
+                    if(blog.getAuthorId()==result.getId())
+                        blog.setAuthorId(7);
+                }
                 authors.remove(result);
                 metaData.setModifiedAt(String.valueOf(System.currentTimeMillis()));
+                dbSnapShot.setBlogs(blogs);
                 dbSnapShot.setAuthors(authors);
                 dbSnapShot.setMetaData(metaData);
                 databaseManager.updateData(dbSnapShot);

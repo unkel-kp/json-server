@@ -182,6 +182,7 @@ public class BlogService {
                 throw new Exception("NO BLOG FOUND! Make sure you're providing the correct id");
             }
             else {
+                authorService.getAuthorById(String.valueOf(requestBody.getAuthorId()));
                 result.setTitle(requestBody.getTitle());
                 result.setAuthorId(requestBody.getAuthorId());
                 result.setReadTime(requestBody.getReadTime());

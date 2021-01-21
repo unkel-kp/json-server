@@ -230,6 +230,9 @@ public class AuthorService {
 
     public Author deleteAuthor(String id) throws Exception {
         try{
+            if(id.equals("7")){
+                throw new Exception("PERMISSION DENIED! You're trying to delete the master author!");
+            }
             Database dbSnapShot = databaseManager.getData();
             List<Author> authors = dbSnapShot.getAuthors();
             List<Blog> blogs = dbSnapShot.getBlogs();
